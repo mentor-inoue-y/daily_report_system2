@@ -62,6 +62,7 @@ public abstract class ActionBase {
             String command = request.getParameter(ForwardConst.CMD.getValue());
 
             //ommandに該当するメソッドを実行する
+            System.out.println("子で実行するメソッド名は＝" + command);
             //(例: action=Employee command=show の場合 EmployeeActionクラスのshow()メソッドを実行する)
             commandMethod = this.getClass().getDeclaredMethod(command, new Class[0]);
             commandMethod.invoke(this, new Object[0]); //メソッドに渡す引数はなし
