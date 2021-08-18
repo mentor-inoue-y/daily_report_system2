@@ -23,6 +23,7 @@ public class EmployeeAction extends ActionBase {
 
         service = new EmployeeService();
 
+        System.out.println("【EmployeeAction】start");
         //メソッドを実行
         invoke();
 
@@ -35,6 +36,7 @@ public class EmployeeAction extends ActionBase {
      * @throws IOException
      */
     public void index() throws ServletException, IOException {
+        System.out.println("【EmployeeAction】index start");
 
         //指定されたページ数の一覧画面に表示するデータを取得
         int page = getPage();
@@ -58,6 +60,20 @@ public class EmployeeAction extends ActionBase {
         //一覧画面を表示
         forward(ForwardConst.FW_EMP_INDEX);
 
+    }
+
+    /**
+     * 新規登録画面を表示する
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void entryNew() throws ServletException, IOException {
+
+        putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
+        putRequestScope(AttributeConst.EMPLOYEE, new EmployeeView()); //空の従業員インスタンス
+
+        //新規登録画面を表示
+        forward(ForwardConst.FW_EMP_NEW);
     }
 
 }

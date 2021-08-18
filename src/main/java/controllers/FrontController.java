@@ -64,8 +64,7 @@ public class FrontController extends HttpServlet {
                     .getDeclaredConstructor()
                     .newInstance());
 
-            System.out.println("実行するタイプ名は＝" + type);
-            System.out.println("実行するメソッド名は＝" + action);
+            System.out.println("【FrontController】実行するタイプは＝" + actionString);
 
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SecurityException
                 | IllegalArgumentException | InvocationTargetException| NoSuchMethodException e) {
