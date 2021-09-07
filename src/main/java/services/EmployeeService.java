@@ -235,6 +235,8 @@ public class EmployeeService extends ServiceBase {
      * @return 登録結果(成功:true 失敗:false)
      */
     private void create(EmployeeView ev) {
+        //Employee data = EmployeeConverter.toModel(ev);
+        //System.out.println("書き込む前の名前は" + data.getName());
 
         em.getTransaction().begin();
         em.persist(EmployeeConverter.toModel(ev));

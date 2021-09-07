@@ -2,8 +2,10 @@ package controllers;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +24,8 @@ public class FrontController extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+
         //パラメータに該当するActionクラスのインスタンス
         ActionBase action = getAction(request, response);
 
@@ -37,6 +41,10 @@ public class FrontController extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //request.setCharacterEncoding("UTF-8");
+
+        //out_list("doPost", request);
+
         doGet(request, response);
     }
 
@@ -64,7 +72,7 @@ public class FrontController extends HttpServlet {
                     .getDeclaredConstructor()
                     .newInstance());
 
-            System.out.println("【FrontController】実行するタイプは＝" + actionString);
+            //System.out.println("【FrontController】実行するタイプは＝" + actionString);
 
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SecurityException
                 | IllegalArgumentException | InvocationTargetException| NoSuchMethodException e) {
@@ -74,5 +82,28 @@ public class FrontController extends HttpServlet {
             action = new UnknownAction();
         }
         return action;
+    }
+
+    private void out_list(String mes, ServletRequest request) {
+        Enumeration names = request.getParameterNames();
+
+        System.out.println("");
+        System.out.println(request.getCharacterEncoding());
+        System.out.println("*************  "+mes+"*************  ");
+
+        while (names.hasMoreElements()){
+          String name = (String)names.nextElement();
+          String vals[] = request.getParameterValues(name);
+          if (vals != null){
+            for (int i = 0 ; i < vals.length ; i++){
+              System.out.print(name);
+              System.out.print(":");
+              System.out.println(vals[i]);
+            }
+          }
+        }
+
+        System.out.println("******************************  ");
+        System.out.println("");
     }
 }

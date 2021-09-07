@@ -10,11 +10,18 @@ body {
     height: 70px;
     background-color: #333333;
 }
-
+.img_div{
+    height: 218px;
+    width: 157px;
+}
+.img{
+    background: url("book.jpg");
+}
 #content {
     width: 94%;
     margin-top: 15px;
     padding-left: 3%;
+
 }
 
 h1 {

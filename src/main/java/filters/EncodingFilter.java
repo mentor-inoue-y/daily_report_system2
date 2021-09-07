@@ -1,6 +1,7 @@
 package filters;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -34,10 +35,14 @@ public class EncodingFilter implements Filter {
      * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
      */
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
+        //out_list("エンコード前", request);
+        //request.setCharacterEncoding("UTF-8");
+        //response.setCharacterEncoding("UTF-8");
+
 
         chain.doFilter(request, response);
+
+        //out_list("エンコード後", request);
     }
 
     /**
@@ -45,6 +50,29 @@ public class EncodingFilter implements Filter {
      */
     public void init(FilterConfig fConfig) throws ServletException {
 
+    }
+
+    private void out_list(String mes, ServletRequest request) {
+        Enumeration names = request.getParameterNames();
+
+        System.out.println("");
+        System.out.println(request.getCharacterEncoding());
+        System.out.println("*************  "+mes+"*************  ");
+
+        while (names.hasMoreElements()){
+          String name = (String)names.nextElement();
+          String vals[] = request.getParameterValues(name);
+          if (vals != null){
+            for (int i = 0 ; i < vals.length ; i++){
+              System.out.print(name);
+              System.out.print(":");
+              System.out.println(vals[i]);
+            }
+          }
+        }
+
+        System.out.println("******************************  ");
+        System.out.println("");
     }
 
 }
